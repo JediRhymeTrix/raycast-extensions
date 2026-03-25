@@ -1,4 +1,5 @@
 import { getPreferenceValues, showToast, Toast } from "@raycast/api";
+import { showFailureToast } from "@raycast/utils";
 import { isAuthenticated, authenticate, verifyPassword, TelegramConfig } from "../services/telegram-client";
 import { handleTelegramError } from "./errors";
 
@@ -75,11 +76,7 @@ export async function handleAuthFlow(
     } catch (e) {
       friendlyError = e;
     }
-    await showToast({
-      style: Toast.Style.Failure,
-      title: "Authentication Failed",
-      message: friendlyError instanceof Error ? friendlyError.message : "Unknown error occurred",
-    });
+    await showFailureToast(friendlyError, { title: "Authentication Failed" });
     return { success: false, needsCode: false };
   }
 }
@@ -101,11 +98,7 @@ export async function handlePasswordFlow(password: string): Promise<{ success: b
     } catch (e) {
       friendlyError = e;
     }
-    await showToast({
-      style: Toast.Style.Failure,
-      title: "Authentication Failed",
-      message: friendlyError instanceof Error ? friendlyError.message : "Unknown error occurred",
-    });
+    await showFailureToast(friendlyError, { title: "Authentication Failed" });
     return { success: false };
   }
 }
