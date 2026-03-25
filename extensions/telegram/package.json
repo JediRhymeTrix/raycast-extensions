@@ -80,6 +80,12 @@
       "title": "Send to Saved Messages",
       "description": "Send a message to your Telegram saved messages",
       "mode": "view"
+    },
+    {
+      "name": "reset-session",
+      "title": "Reset Telegram Session",
+      "description": "Clear stored authentication data to recover from a broken login state",
+      "mode": "view"
     }
   ],
   "tools": [
