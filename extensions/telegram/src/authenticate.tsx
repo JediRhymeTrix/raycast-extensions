@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, ActionPanel, Action, showToast, Toast, popToRoot, Icon } from "@raycast/api";
+import { Form, ActionPanel, Action, popToRoot, Icon } from "@raycast/api";
 import { useForm, FormValidation } from "@raycast/utils";
 import dedent from "dedent";
 import { handleAuthFlow, handlePasswordFlow } from "./utils/auth";
@@ -27,12 +27,6 @@ export default function Authenticate() {
         } else if (result.needsPassword) {
           setNeedsPassword(true);
         }
-      } catch (error) {
-        await showToast({
-          style: Toast.Style.Failure,
-          title: "Authentication Failed",
-          message: error instanceof Error ? error.message : "Unknown error occurred",
-        });
       } finally {
         setIsSubmitting(false);
       }
@@ -50,12 +44,6 @@ export default function Authenticate() {
         if (result.success) {
           await popToRoot();
         }
-      } catch (error) {
-        await showToast({
-          style: Toast.Style.Failure,
-          title: "Authentication Failed",
-          message: error instanceof Error ? error.message : "Unknown error occurred",
-        });
       } finally {
         setIsSubmitting(false);
       }
@@ -66,19 +54,11 @@ export default function Authenticate() {
   });
 
   const handleInitialAuth = async () => {
-    try {
-      const result = await handleAuthFlow();
-      if (result.needsCode) {
-        setNeedsCode(true);
-      } else if (result.success) {
-        await popToRoot();
-      }
-    } catch (error) {
-      await showToast({
-        style: Toast.Style.Failure,
-        title: "Authentication Failed",
-        message: error instanceof Error ? error.message : "Unknown error occurred",
-      });
+    const result = await handleAuthFlow();
+    if (result.needsCode) {
+      setNeedsCode(true);
+    } else if (result.success) {
+      await popToRoot();
     }
   };
 
