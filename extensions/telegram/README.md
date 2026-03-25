@@ -1,6 +1,6 @@
 # Telegram
 
-A Raycast extension for browsing chats, sending messages, and managing your Telegram account directly from Raycast.
+A Raycast extension for browsing chats, reading messages, and sending messages to your Telegram contacts and groups directly from Raycast.
 
 ## Features
 
